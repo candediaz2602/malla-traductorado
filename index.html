@@ -17,7 +17,6 @@
       --transition-time: 0.3s;
     }
 
-    /* Reset y body */
     * {
       box-sizing: border-box;
     }
@@ -70,7 +69,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* Sección año */
     section.anio {
       flex: 0 0 300px;
       padding: 1.5rem 1rem 2rem;
@@ -93,13 +91,11 @@
       text-align: center;
     }
 
-    /* Colores años */
     .anio.rosa { background: var(--rosa); }
     .anio.amarillo { background: var(--amarillo); }
     .anio.celeste { background: var(--celeste); }
     .anio.verde { background: var(--verde); }
 
-    /* Aclaración */
     .aclaracion {
       background: #fff;
       padding: 0.9rem 1rem;
@@ -114,7 +110,6 @@
       flex-shrink: 0;
     }
 
-    /* Grid de materias */
     .materias-grid {
       display: flex;
       flex-direction: column;
@@ -124,7 +119,6 @@
       padding-right: 0.5rem;
     }
 
-    /* Tarjeta materia */
     .materia {
       background: white;
       border-radius: var(--border-radius);
@@ -149,7 +143,6 @@
       filter: grayscale(30%);
     }
 
-    /* Checkbox + label */
     .label {
       display: flex;
       align-items: center;
@@ -163,7 +156,7 @@
       width: 22px;
       height: 22px;
       cursor: pointer;
-      accent-color: #d57fa1; /* suave rosa */
+      accent-color: #d57fa1;
       border-radius: 6px;
       flex-shrink: 0;
       transition: accent-color 0.3s;
@@ -175,7 +168,6 @@
       cursor: default;
     }
 
-    /* Correlativas */
     .correlativas {
       margin-top: 0.6rem;
       font-size: 0.82rem;
@@ -185,7 +177,6 @@
       user-select: text;
     }
 
-    /* Indicador obligatorio */
     .nota {
       font-size: 0.82rem;
       color: #a04a65;
@@ -194,7 +185,6 @@
       user-select: none;
     }
 
-    /* Animación suave al activar checkbox */
     input[type="checkbox"] {
       transition: transform 0.15s ease-in-out;
     }
@@ -202,7 +192,6 @@
       transform: scale(1.1);
     }
 
-    /* Residencia */
     .residencia {
       background: #fff2c7;
       border-radius: var(--border-radius);
@@ -221,7 +210,6 @@
       justify-content: center;
     }
 
-    /* Scrollbar estilo para main (horizontal) */
     main::-webkit-scrollbar {
       height: 10px;
     }
@@ -258,21 +246,19 @@
   </header>
 
   <main>
-    <!-- Primer Año -->
     <section class="anio rosa" id="anio1">
       <h2>Primer Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox" id="ingles1" onchange="actualizar()"> Lengua Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="esp1" onchange="actualizar()"> Lengua Española I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="trad1" onchange="actualizar()"> Traducción I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="fono1" onchange="actualizar()"> Fonología I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="gram1" onchange="actualizar()"> Gramática Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="cultura" onchange="actualizar()"> Asp. Bás. de la Cultura</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="info" onchange="actualizar()"> Introd. a los Recursos Informáticos</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles1" onchange="guardarYActualizar(this)"> Lengua Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="esp1" onchange="guardarYActualizar(this)"> Lengua Española I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="trad1" onchange="guardarYActualizar(this)"> Traducción I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="fono1" onchange="guardarYActualizar(this)"> Fonología I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="gram1" onchange="guardarYActualizar(this)"> Gramática Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="cultura" onchange="guardarYActualizar(this)"> Asp. Bás. de la Cultura</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="info" onchange="guardarYActualizar(this)"> Introd. a los Recursos Informáticos</label></div>
       </div>
     </section>
 
-    <!-- Segundo Año -->
     <section class="anio amarillo" id="anio2">
       <h2>Segundo Año</h2>
       <div class="aclaracion">
@@ -280,37 +266,36 @@
       </div>
       <div class="materias-grid">
         <div class="materia disabled" id="trad2-box">
-          <label class="label"><input type="checkbox" id="trad2" disabled onchange="actualizar()"> Traducción II</label>
+          <label class="label"><input type="checkbox" id="trad2" disabled onchange="guardarYActualizar(this)"> Traducción II</label>
           <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I, Traducción I, Lengua Española I</div>
         </div>
         <div class="materia disabled" id="ingles2-box">
-          <label class="label"><input type="checkbox" id="ingles2" disabled onchange="actualizar()"> Lengua Inglesa II</label>
+          <label class="label"><input type="checkbox" id="ingles2" disabled onchange="guardarYActualizar(this)"> Lengua Inglesa II</label>
           <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I, Fonología I</div>
         </div>
         <div class="materia disabled" id="gram2-box">
-          <label class="label"><input type="checkbox" id="gram2" disabled onchange="actualizar()"> Gramática Inglesa II</label>
+          <label class="label"><input type="checkbox" id="gram2" disabled onchange="guardarYActualizar(this)"> Gramática Inglesa II</label>
           <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I</div>
         </div>
         <div class="materia disabled" id="fono2-box">
-          <label class="label"><input type="checkbox" id="fono2" disabled onchange="actualizar()"> Fonología II</label>
+          <label class="label"><input type="checkbox" id="fono2" disabled onchange="guardarYActualizar(this)"> Fonología II</label>
           <div class="correlativas">Correlativa: Fonología I</div>
         </div>
         <div class="materia disabled" id="esp2-box">
-          <label class="label"><input type="checkbox" id="esp2" disabled onchange="actualizar()"> Lengua Española II</label>
+          <label class="label"><input type="checkbox" id="esp2" disabled onchange="guardarYActualizar(this)"> Lengua Española II</label>
           <div class="correlativas">Correlativa: Lengua Española I</div>
         </div>
         <div class="materia disabled" id="lit-box">
-          <label class="label"><input type="checkbox" id="lit" disabled onchange="actualizar()"> Introd. a la Literatura</label>
+          <label class="label"><input type="checkbox" id="lit" disabled onchange="guardarYActualizar(this)"> Introd. a la Literatura</label>
           <div class="correlativas">Correlativa: Asp. Bás. de la Cultura</div>
         </div>
         <div class="materia disabled" id="term-box">
-          <label class="label"><input type="checkbox" id="term" disabled onchange="actualizar()"> Terminología y Documentación (taller)</label>
+          <label class="label"><input type="checkbox" id="term" disabled onchange="guardarYActualizar(this)"> Terminología y Documentación (taller)</label>
           <div class="correlativas">Correlativa: Introd. a los Recursos Informáticos</div>
         </div>
       </div>
     </section>
 
-    <!-- Tercer Año -->
     <section class="anio celeste" id="anio3">
       <h2>Tercer Año</h2>
       <div class="aclaracion">
@@ -318,38 +303,37 @@
       </div>
       <div class="materias-grid">
         <div class="materia disabled" id="tradLit1-box">
-          <label class="label"><input type="checkbox" id="tradLit1" disabled onchange="actualizar()"> Traducción Literaria I</label>
+          <label class="label"><input type="checkbox" id="tradLit1" disabled onchange="guardarYActualizar(this)"> Traducción Literaria I</label>
           <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Introd. a la Literatura, Lengua Española II, Traducción II</div>
         </div>
         <div class="materia disabled" id="tradTC1-box">
-          <label class="label"><input type="checkbox" id="tradTC1" disabled onchange="actualizar()"> Traducción Técnico-Científica I</label>
+          <label class="label"><input type="checkbox" id="tradTC1" disabled onchange="guardarYActualizar(this)"> Traducción Técnico-Científica I</label>
           <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Lengua Española II, Traducción II</div>
         </div>
         <div class="materia disabled" id="interp1-box">
-          <label class="label"><input type="checkbox" id="interp1" disabled onchange="actualizar()"> Interpretación I (taller)</label>
+          <label class="label"><input type="checkbox" id="interp1" disabled onchange="guardarYActualizar(this)"> Interpretación I (taller)</label>
           <div class="correlativas">Correlativas: Lengua Inglesa II, Fonología II, Lengua Española II, Traducción II</div>
           <div class="nota">*Para aprobar Interpretación I, no es necesario tener aprobados los finales de las correlativas.*</div>
         </div>
         <div class="materia disabled" id="ingles3-box">
-          <label class="label"><input type="checkbox" id="ingles3" disabled onchange="actualizar()"> Lengua Inglesa III</label>
+          <label class="label"><input type="checkbox" id="ingles3" disabled onchange="guardarYActualizar(this)"> Lengua Inglesa III</label>
           <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Fonología II</div>
         </div>
         <div class="materia disabled" id="estruc-comp-box">
-          <label class="label"><input type="checkbox" id="estrucComp" disabled onchange="actualizar()"> Estructuras Comparadas</label>
+          <label class="label"><input type="checkbox" id="estrucComp" disabled onchange="guardarYActualizar(this)"> Estructuras Comparadas</label>
           <div class="correlativas">Correlativas: Traducción II, Gramática Inglesa II, Lengua Española II</div>
         </div>
         <div class="materia disabled" id="lit20-box">
-          <label class="label"><input type="checkbox" id="lit20" disabled onchange="actualizar()"> Literatura del Siglo XX</label>
+          <label class="label"><input type="checkbox" id="lit20" disabled onchange="guardarYActualizar(this)"> Literatura del Siglo XX</label>
           <div class="correlativas">Correlativa: Introd. a la Literatura</div>
         </div>
         <div class="materia disabled" id="anal-riop-box">
-          <label class="label"><input type="checkbox" id="analRiop" disabled onchange="actualizar()"> Análisis de Textos Rioplatenses</label>
+          <label class="label"><input type="checkbox" id="analRiop" disabled onchange="guardarYActualizar(this)"> Análisis de Textos Rioplatenses</label>
           <div class="correlativas">Correlativa: Lengua Española II</div>
         </div>
       </div>
     </section>
 
-    <!-- Cuarto Año -->
     <section class="anio verde" id="anio4">
       <h2>Cuarto Año</h2>
       <div class="aclaracion">
@@ -357,46 +341,45 @@
       </div>
       <div class="materias-grid">
         <div class="materia disabled" id="tradInv-box">
-          <label class="label"><input type="checkbox" id="tradInv" disabled onchange="actualizar()"> Traducción Inversa</label>
+          <label class="label"><input type="checkbox" id="tradInv" disabled onchange="guardarYActualizar(this)"> Traducción Inversa</label>
           <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Literaria I, Interpretación I, Análisis de Textos Rioplatenses, Estructuras Comparadas, Traducción Técnico-Científica I</div>
         </div>
         <div class="materia disabled" id="tradLit2-box">
-          <label class="label"><input type="checkbox" id="tradLit2" disabled onchange="actualizar()"> Traducción Literaria II</label>
+          <label class="label"><input type="checkbox" id="tradLit2" disabled onchange="guardarYActualizar(this)"> Traducción Literaria II</label>
           <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Literaria I, Literatura del Siglo XX, Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
         </div>
         <div class="materia disabled" id="tradTC2-box">
-          <label class="label"><input type="checkbox" id="tradTC2" disabled onchange="actualizar()"> Traducción Técnico-Científica II</label>
+          <label class="label"><input type="checkbox" id="tradTC2" disabled onchange="guardarYActualizar(this)"> Traducción Técnico-Científica II</label>
           <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Técnico-Científica I, Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
         </div>
         <div class="materia disabled" id="interp2-box">
-          <label class="label"><input type="checkbox" id="interp2" disabled onchange="actualizar()"> Interpretación II (taller)</label>
+          <label class="label"><input type="checkbox" id="interp2" disabled onchange="guardarYActualizar(this)"> Interpretación II (taller)</label>
           <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Técnico-Científica I, Interpretación I, Estructuras Comparadas</div>
           <div class="nota">*Para aprobar Interpretación II, no es necesario tener aprobados los finales de las correlativas.*</div>
         </div>
         <div class="materia disabled" id="ingles4-box">
-          <label class="label"><input type="checkbox" id="ingles4" disabled onchange="actualizar()"> Lengua Inglesa IV</label>
+          <label class="label"><input type="checkbox" id="ingles4" disabled onchange="guardarYActualizar(this)"> Lengua Inglesa IV</label>
           <div class="correlativas">Correlativa: Lengua Inglesa III</div>
         </div>
         <div class="materia disabled" id="ling-box">
-          <label class="label"><input type="checkbox" id="ling" disabled onchange="actualizar()"> Lingüística General</label>
+          <label class="label"><input type="checkbox" id="ling" disabled onchange="guardarYActualizar(this)"> Lingüística General</label>
           <div class="correlativas">Correlativas: Traducción Literaria I, Traducción Técnico-Científica I, Estructuras Comparadas</div>
         </div>
         <div class="materia disabled" id="expresion-box">
-          <label class="label"><input type="checkbox" id="expresion" disabled onchange="actualizar()"> Expresión Oral y Escrita</label>
+          <label class="label"><input type="checkbox" id="expresion" disabled onchange="guardarYActualizar(this)"> Expresión Oral y Escrita</label>
           <div class="correlativas">Correlativas: Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
         </div>
         <div class="materia disabled" id="desempeno-box">
-          <label class="label"><input type="checkbox" id="desempeno" disabled onchange="actualizar()"> Desempeño Profesional y Ética</label>
+          <label class="label"><input type="checkbox" id="desempeno" disabled onchange="guardarYActualizar(this)"> Desempeño Profesional y Ética</label>
           <div class="correlativas">Correlativas: Traducción Técnico-Científica I, Traducción Literaria I</div>
         </div>
         <div class="materia disabled" id="etica-box">
-          <label class="label"><input type="checkbox" id="etica" disabled onchange="actualizar()"> Ética y Deontología (seminario)</label>
+          <label class="label"><input type="checkbox" id="etica" disabled onchange="guardarYActualizar(this)"> Ética y Deontología (seminario)</label>
           <div class="correlativas">Sin correlativas</div>
         </div>
       </div>
     </section>
 
-    <!-- Residencia -->
     <section class="anio amarillo residencia" id="residencia-section">
       <h2>Residencia Profesional</h2>
       <p>La residencia es el cierre del plan de estudios, con duración aproximada de 6 meses.</p>
@@ -441,8 +424,7 @@
       etica: []
     };
 
-    // Esta función verifica cuántas materias de un año están aprobadas
-    // Para desbloquear años superiores
+    // Contar cuántas materias están aprobadas (checkbox checked)
     function contarAprobadas(ids) {
       return ids.reduce((acc, id) => {
         const checkbox = document.getElementById(id);
@@ -450,24 +432,48 @@
       }, 0);
     }
 
-    // Esta función habilita o deshabilita una materia según si se cumplen las correlativas
+    // Función que guarda el estado en localStorage y luego actualiza el estado de la malla
+    function guardarYActualizar(checkbox) {
+      localStorage.setItem(checkbox.id, checkbox.checked);
+      actualizar();
+    }
+
+    // Cargar el estado guardado en localStorage
+    function cargarEstado() {
+      Object.keys(materias).forEach(id => {
+        const checkbox = document.getElementById(id);
+        if (checkbox) {
+          const valorGuardado = localStorage.getItem(id);
+          if (valorGuardado !== null) {
+            checkbox.checked = valorGuardado === "true";
+          }
+        }
+      });
+    }
+
+    // Actualizar habilitación de materias según correlativas y años aprobados
     function actualizar() {
-      // Primero desbloqueamos segundo año si hay al menos 3 aprobadas del primero
       const primerAnioIds = ["ingles1", "esp1", "trad1", "fono1", "gram1", "cultura", "info"];
+      const segundoAnioIds = ["trad2", "ingles2", "gram2", "fono2", "esp2", "lit", "term"];
+      const tercerAnioIds = ["tradLit1", "tradTC1", "interp1", "ingles3", "estrucComp", "lit20", "analRiop"];
+      const cuartoAnioIds = ["tradInv", "tradLit2", "tradTC2", "interp2", "ingles4", "ling", "expresion", "desempeno", "etica"];
+
       const aprobPrimerAnio = contarAprobadas(primerAnioIds);
+      const aprobSegundoAnio = contarAprobadas(segundoAnioIds);
+      const aprobTercerAnio = contarAprobadas(tercerAnioIds);
+      const aprobPrimerCompleto = primerAnioIds.every(id => document.getElementById(id).checked);
+
       const puedeSegundoAnio = aprobPrimerAnio >= 3;
+      const puedeTercerAnio = aprobPrimerCompleto && aprobSegundoAnio >= 3;
+      const puedeCuartoAnio = aprobSegundoAnio === segundoAnioIds.length && aprobTercerAnio >= 3;
 
       // Desbloquear segundo año
-      ["trad2", "ingles2", "gram2", "fono2", "esp2", "lit", "term"].forEach(id => {
+      segundoAnioIds.forEach(id => {
         const box = document.getElementById(id + "-box");
         const checkbox = document.getElementById(id);
         if (puedeSegundoAnio) {
-          // habilitar solo si correlativas aprobadas
           const correl = materias[id];
-          const todasCorrelativas = correl.every(c => {
-            const cb = document.getElementById(c);
-            return cb && cb.checked;
-          });
+          const todasCorrelativas = correl.every(c => document.getElementById(c).checked);
           if (todasCorrelativas) {
             box.classList.remove("disabled");
             checkbox.disabled = false;
@@ -475,38 +481,27 @@
             box.classList.add("disabled");
             checkbox.disabled = true;
             checkbox.checked = false;
+            localStorage.setItem(id, false);
           }
         } else {
           box.classList.add("disabled");
           checkbox.disabled = true;
           checkbox.checked = false;
+          localStorage.setItem(id, false);
         }
       });
 
-      // Segundo año aprobado para desbloquear tercer año: todos aprobados primero + 3 aprobados segundo
-      const segundoAnioIds = ["trad2", "ingles2", "gram2", "fono2", "esp2", "lit", "term"];
-      const aprobSegundoAnio = contarAprobadas(segundoAnioIds);
-      const aprobPrimerCompleto = primerAnioIds.every(id => {
-        const cb = document.getElementById(id);
-        return cb && cb.checked;
-      });
-      const puedeTercerAnio = aprobPrimerCompleto && aprobSegundoAnio >= 3;
-
       // Desbloquear tercer año
-      ["tradLit1", "tradTC1", "interp1", "ingles3", "estrucComp", "lit20", "analRiop"].forEach(id => {
+      tercerAnioIds.forEach(id => {
         const box = document.getElementById(id + "-box");
         const checkbox = document.getElementById(id);
         if (puedeTercerAnio) {
-          // Para interp1, no pide correlativas para aprobar
           if (id === "interp1") {
             box.classList.remove("disabled");
             checkbox.disabled = false;
           } else {
             const correl = materias[id];
-            const todasCorrelativas = correl.every(c => {
-              const cb = document.getElementById(c);
-              return cb && cb.checked;
-            });
+            const todasCorrelativas = correl.every(c => document.getElementById(c).checked);
             if (todasCorrelativas) {
               box.classList.remove("disabled");
               checkbox.disabled = false;
@@ -514,35 +509,28 @@
               box.classList.add("disabled");
               checkbox.disabled = true;
               checkbox.checked = false;
+              localStorage.setItem(id, false);
             }
           }
         } else {
           box.classList.add("disabled");
           checkbox.disabled = true;
           checkbox.checked = false;
+          localStorage.setItem(id, false);
         }
       });
 
-      // Para cuarto año: todos segundos aprobados + 3 terceros aprobados
-      const tercerAnioIds = ["tradLit1", "tradTC1", "interp1", "ingles3", "estrucComp", "lit20", "analRiop"];
-      const aprobTercerAnio = contarAprobadas(tercerAnioIds);
-      const puedeCuartoAnio = aprobSegundoAnio === segundoAnioIds.length && aprobTercerAnio >= 3;
-
       // Desbloquear cuarto año
-      ["tradInv", "tradLit2", "tradTC2", "interp2", "ingles4", "ling", "expresion", "desempeno", "etica"].forEach(id => {
+      cuartoAnioIds.forEach(id => {
         const box = document.getElementById(id + "-box");
         const checkbox = document.getElementById(id);
         if (puedeCuartoAnio) {
-          // interp2 tampoco necesita correlativas para aprobar
           if (id === "interp2" || id === "etica") {
             box.classList.remove("disabled");
             checkbox.disabled = false;
           } else {
             const correl = materias[id];
-            const todasCorrelativas = correl.every(c => {
-              const cb = document.getElementById(c);
-              return cb && cb.checked;
-            });
+            const todasCorrelativas = correl.every(c => document.getElementById(c).checked);
             if (todasCorrelativas) {
               box.classList.remove("disabled");
               checkbox.disabled = false;
@@ -550,18 +538,22 @@
               box.classList.add("disabled");
               checkbox.disabled = true;
               checkbox.checked = false;
+              localStorage.setItem(id, false);
             }
           }
         } else {
           box.classList.add("disabled");
           checkbox.disabled = true;
           checkbox.checked = false;
+          localStorage.setItem(id, false);
         }
       });
     }
 
-    // Inicializar al cargar la página
-    window.addEventListener("load", actualizar);
+    window.addEventListener("load", () => {
+      cargarEstado();
+      actualizar();
+    });
   </script>
 </body>
 </html>
