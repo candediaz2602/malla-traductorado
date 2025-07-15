@@ -102,17 +102,19 @@
       box-shadow: 0 3px 10px rgba(0,0,0,0.07);
       transition: transform var(--transition-time), box-shadow var(--transition-time);
       user-select: none;
-    }
-
-    .materia:hover:not(.disabled) {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      cursor: pointer;
     }
 
     .materia.disabled {
       opacity: 0.5;
       pointer-events: none;
-      filter: grayscale(30%);
+      filter: grayscale(40%);
+      cursor: default;
+    }
+
+    .materia:hover:not(.disabled) {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     }
 
     .label {
@@ -127,12 +129,18 @@
       height: 22px;
       accent-color: #d57fa1;
       cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .label input[type="checkbox"]:disabled {
+      cursor: default;
     }
 
     .correlativas {
       margin-top: 0.5rem;
       font-size: 0.85rem;
       color: #666;
+      user-select: text;
     }
 
     .nota {
@@ -188,51 +196,108 @@
     <section class="anio rosa">
       <h2>Primer Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox" id="ingles1" onchange="actualizar()"> Lengua Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="esp1" onchange="actualizar()"> Lengua Española I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="trad1" onchange="actualizar()"> Traducción I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="fono1" onchange="actualizar()"> Fonología I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="gram1" onchange="actualizar()"> Gramática Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="cultura" onchange="actualizar()"> Asp. Bás. de la Cultura</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="info" onchange="actualizar()"> Introd. a los Recursos Informáticos</label></div>
+        <div class="materia" id="box_ingles1"><label class="label"><input type="checkbox" id="ingles1" onchange="actualizar()"> Lengua Inglesa I</label></div>
+        <div class="materia" id="box_esp1"><label class="label"><input type="checkbox" id="esp1" onchange="actualizar()"> Lengua Española I</label></div>
+        <div class="materia" id="box_trad1"><label class="label"><input type="checkbox" id="trad1" onchange="actualizar()"> Traducción I</label></div>
+        <div class="materia" id="box_fono1"><label class="label"><input type="checkbox" id="fono1" onchange="actualizar()"> Fonología I</label></div>
+        <div class="materia" id="box_gram1"><label class="label"><input type="checkbox" id="gram1" onchange="actualizar()"> Gramática Inglesa I</label></div>
+        <div class="materia" id="box_cultura"><label class="label"><input type="checkbox" id="cultura" onchange="actualizar()"> Asp. Bás. de la Cultura</label></div>
+        <div class="materia" id="box_info"><label class="label"><input type="checkbox" id="info" onchange="actualizar()"> Introd. a los Recursos Informáticos</label></div>
       </div>
     </section>
     <section class="anio amarillo">
       <h2>Segundo Año</h2>
+      <div class="aclaracion">
+        *Para cursar materias de segundo año, necesitás haber aprobado tres finales de materias de primer año.*
+      </div>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox" id="trad2" onchange="actualizar()"> Traducción II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="ingles2" onchange="actualizar()"> Lengua Inglesa II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="gram2" onchange="actualizar()"> Gramática Inglesa II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="fono2" onchange="actualizar()"> Fonología II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="esp2" onchange="actualizar()"> Lengua Española II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="lit" onchange="actualizar()"> Introd. a la Literatura</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="term" onchange="actualizar()"> Terminología y Documentación</label></div>
+        <div class="materia disabled" id="box_trad2"><label class="label"><input type="checkbox" id="trad2" disabled onchange="actualizar()"> Traducción II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I, Traducción I, Lengua Española I</div>
+        </div>
+        <div class="materia disabled" id="box_ingles2"><label class="label"><input type="checkbox" id="ingles2" disabled onchange="actualizar()"> Lengua Inglesa II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I, Fonología I</div>
+        </div>
+        <div class="materia disabled" id="box_gram2"><label class="label"><input type="checkbox" id="gram2" disabled onchange="actualizar()"> Gramática Inglesa II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa I, Gramática Inglesa I</div>
+        </div>
+        <div class="materia disabled" id="box_fono2"><label class="label"><input type="checkbox" id="fono2" disabled onchange="actualizar()"> Fonología II</label>
+          <div class="correlativas">Correlativa: Fonología I</div>
+        </div>
+        <div class="materia disabled" id="box_esp2"><label class="label"><input type="checkbox" id="esp2" disabled onchange="actualizar()"> Lengua Española II</label>
+          <div class="correlativas">Correlativa: Lengua Española I</div>
+        </div>
+        <div class="materia disabled" id="box_lit"><label class="label"><input type="checkbox" id="lit" disabled onchange="actualizar()"> Introd. a la Literatura</label>
+          <div class="correlativas">Correlativa: Asp. Bás. de la Cultura</div>
+        </div>
+        <div class="materia disabled" id="box_term"><label class="label"><input type="checkbox" id="term" disabled onchange="actualizar()"> Terminología y Documentación</label>
+          <div class="correlativas">Correlativa: Introd. a los Recursos Informáticos</div>
+        </div>
       </div>
     </section>
     <section class="anio celeste">
       <h2>Tercer Año</h2>
+      <div class="aclaracion">
+        *Para cursar materias de tercer año, necesitás haber aprobado los finales de todas las materias de primer año y tres finales de materias de segundo año.*
+      </div>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox" id="tradLit1" onchange="actualizar()"> Traducción Literaria I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="tradTC1" onchange="actualizar()"> Traducción Técnico-Científica I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="interp1" onchange="actualizar()"> Interpretación I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="ingles3" onchange="actualizar()"> Lengua Inglesa III</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="estrucComp" onchange="actualizar()"> Estructuras Comparadas</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="lit20" onchange="actualizar()"> Literatura del Siglo XX</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="analRiop" onchange="actualizar()"> Análisis de Textos Rioplatenses</label></div>
+        <div class="materia disabled" id="box_tradLit1"><label class="label"><input type="checkbox" id="tradLit1" disabled onchange="actualizar()"> Traducción Literaria I</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Introd. a la Literatura, Lengua Española II, Traducción II</div>
+        </div>
+        <div class="materia disabled" id="box_tradTC1"><label class="label"><input type="checkbox" id="tradTC1" disabled onchange="actualizar()"> Traducción Técnico-Científica I</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Lengua Española II, Traducción II</div>
+        </div>
+        <div class="materia disabled" id="box_interp1"><label class="label"><input type="checkbox" id="interp1" disabled onchange="actualizar()"> Interpretación I</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa II, Fonología II, Lengua Española II, Traducción II</div>
+          <div class="nota">*Para aprobar Interpretación I, no es necesario tener aprobados los finales de las correlativas.*</div>
+        </div>
+        <div class="materia disabled" id="box_ingles3"><label class="label"><input type="checkbox" id="ingles3" disabled onchange="actualizar()"> Lengua Inglesa III</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa II, Gramática Inglesa II, Fonología II</div>
+        </div>
+        <div class="materia disabled" id="box_estrucComp"><label class="label"><input type="checkbox" id="estrucComp" disabled onchange="actualizar()"> Estructuras Comparadas</label>
+          <div class="correlativas">Correlativas: Traducción II, Gramática Inglesa II, Lengua Española II</div>
+        </div>
+        <div class="materia disabled" id="box_lit20"><label class="label"><input type="checkbox" id="lit20" disabled onchange="actualizar()"> Literatura del Siglo XX</label>
+          <div class="correlativas">Correlativa: Introd. a la Literatura</div>
+        </div>
+        <div class="materia disabled" id="box_analRiop"><label class="label"><input type="checkbox" id="analRiop" disabled onchange="actualizar()"> Análisis de Textos Rioplatenses</label>
+          <div class="correlativas">Correlativa: Lengua Española II</div>
+        </div>
       </div>
     </section>
     <section class="anio verde">
       <h2>Cuarto Año</h2>
+      <div class="aclaracion">
+        *Para cursar materias de cuarto año, necesitás haber aprobado los finales de todas las materias de segundo año y tres finales de materias de tercer año.*
+      </div>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox" id="tradInv" onchange="actualizar()"> Traducción Inversa</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="tradLit2" onchange="actualizar()"> Traducción Literaria II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="tradTC2" onchange="actualizar()"> Traducción Técnico-Científica II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="interp2" onchange="actualizar()"> Interpretación II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="ingles4" onchange="actualizar()"> Lengua Inglesa IV</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="ling" onchange="actualizar()"> Lingüística</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="expresion" onchange="actualizar()"> Expresión Oral y Escrita en Español</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="desempeno" onchange="actualizar()"> Desempeño Profesional</label></div>
-        <div class="materia"><label class="label"><input type="checkbox" id="etica" onchange="actualizar()"> Ética y Deontología</label></div>
+        <div class="materia disabled" id="box_tradInv"><label class="label"><input type="checkbox" id="tradInv" disabled onchange="actualizar()"> Traducción Inversa</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Literaria I, Interpretación I, Análisis de Textos Rioplatenses, Estructuras Comparadas, Traducción Técnico-Científica I</div>
+        </div>
+        <div class="materia disabled" id="box_tradLit2"><label class="label"><input type="checkbox" id="tradLit2" disabled onchange="actualizar()"> Traducción Literaria II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Literaria I, Literatura del Siglo XX, Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
+        </div>
+        <div class="materia disabled" id="box_tradTC2"><label class="label"><input type="checkbox" id="tradTC2" disabled onchange="actualizar()"> Traducción Técnico-Científica II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Técnico-Científica I, Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
+        </div>
+        <div class="materia disabled" id="box_interp2"><label class="label"><input type="checkbox" id="interp2" disabled onchange="actualizar()"> Interpretación II</label>
+          <div class="correlativas">Correlativas: Lengua Inglesa III, Traducción Técnico-Científica I, Interpretación I, Estructuras Comparadas</div>
+          <div class="nota">*Para aprobar Interpretación II, no es necesario tener aprobados los finales de las correlativas.*</div>
+        </div>
+        <div class="materia disabled" id="box_ingles4"><label class="label"><input type="checkbox" id="ingles4" disabled onchange="actualizar()"> Lengua Inglesa IV</label>
+          <div class="correlativas">Correlativa: Lengua Inglesa III</div>
+        </div>
+        <div class="materia disabled" id="box_ling"><label class="label"><input type="checkbox" id="ling" disabled onchange="actualizar()"> Lingüística</label>
+          <div class="correlativas">Correlativas: Traducción Literaria I, Traducción Técnico-Científica I, Estructuras Comparadas</div>
+        </div>
+        <div class="materia disabled" id="box_expresion"><label class="label"><input type="checkbox" id="expresion" disabled onchange="actualizar()"> Expresión Oral y Escrita en Español</label>
+          <div class="correlativas">Correlativas: Análisis de Textos Rioplatenses, Estructuras Comparadas</div>
+        </div>
+        <div class="materia disabled" id="box_desempeno"><label class="label"><input type="checkbox" id="desempeno" disabled onchange="actualizar()"> Desempeño Profesional</label>
+          <div class="correlativas">Correlativas: Traducción Técnico-Científica I, Traducción Literaria I</div>
+        </div>
+        <div class="materia disabled" id="box_etica"><label class="label"><input type="checkbox" id="etica" disabled onchange="actualizar()"> Ética y Deontología</label>
+          <div class="correlativas">Sin correlativas</div>
+        </div>
       </div>
     </section>
     <section class="anio residencia" id="residencia-section">
@@ -243,9 +308,9 @@
         Lengua Inglesa IV, Traducción Técnico-Científica II,<br>
         Traducción Literaria II, Expresión Oral y Escrita en Español.
       </div>
-      <div class="materia">
+      <div class="materia disabled" id="box_residencia">
         <label class="label">
-          <input type="checkbox" id="residencia" onchange="actualizar()">
+          <input type="checkbox" id="residencia" disabled onchange="actualizar()">
           Residencia completada
         </label>
       </div>
@@ -256,39 +321,120 @@
   </main>
 
   <script>
+    // Definimos correlativas para cada materia (array de ids)
+    const correlativas = {
+      // Segundo año
+      trad2: ['ingles1', 'gram1', 'trad1', 'esp1'],
+      ingles2: ['ingles1', 'gram1', 'fono1'],
+      gram2: ['ingles1', 'gram1'],
+      fono2: ['fono1'],
+      esp2: ['esp1'],
+      lit: ['cultura'],
+      term: ['info'],
+
+      // Tercer año
+      tradLit1: ['ingles2', 'gram2', 'lit', 'esp2', 'trad2'],
+      tradTC1: ['ingles2', 'gram2', 'esp2', 'trad2'],
+      interp1: [], // no correlativas para habilitar
+      ingles3: ['ingles2', 'gram2', 'fono2'],
+      estrucComp: ['trad2', 'gram2', 'esp2'],
+      lit20: ['lit'],
+      analRiop: ['esp2'],
+
+      // Cuarto año
+      tradInv: ['ingles3', 'tradLit1', 'interp1', 'analRiop', 'estrucComp', 'tradTC1'],
+      tradLit2: ['ingles3', 'tradLit1', 'lit20', 'analRiop', 'estrucComp'],
+      tradTC2: ['ingles3', 'tradTC1', 'analRiop', 'estrucComp'],
+      interp2: [], // no correlativas para habilitar
+      ingles4: ['ingles3'],
+      ling: ['tradLit1', 'tradTC1', 'estrucComp'],
+      expresion: ['analRiop', 'estrucComp'],
+      desempeno: ['tradTC1', 'tradLit1'],
+      etica: [],
+
+      // Residencia: depende de todas materias y finales clave
+      residencia: [] // se valida aparte
+    };
+
+    // Función para saber si todas las correlativas están aprobadas
+    function correlativasAprobadas(ids) {
+      return ids.every(id => {
+        const chk = document.getElementById(id);
+        return chk && chk.checked;
+      });
+    }
+
     function actualizar() {
-      const requiredIds = [
-        'ingles1','esp1','trad1','fono1','gram1','cultura','info',     // 1er año
-        'trad2','ingles2','gram2','fono2','esp2','lit','term',          // 2do año
-        'tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop', // 3er año
-        'tradInv','tradLit2','tradTC2','interp2','ingles4','ling','expresion','desempeno','etica' // 4to año
-      ];
-      const finalesClave = ['ingles4','tradTC2','tradLit2','expresion']; // Para residencia
-
-      let todosAprobados = requiredIds.every(id => {
+      // Primero, habilitamos el primer año siempre (no tienen correlativas)
+      const primerAnio = ['ingles1','esp1','trad1','fono1','gram1','cultura','info'];
+      primerAnio.forEach(id => {
         const checkbox = document.getElementById(id);
-        return checkbox && checkbox.checked;
+        const box = document.getElementById('box_' + id);
+        checkbox.disabled = false;
+        box.classList.remove('disabled');
       });
 
-      let residenciaAprobada = finalesClave.every(id => {
+      // Ahora el resto
+      Object.keys(correlativas).forEach(id => {
+        if (primerAnio.includes(id) || id === 'residencia') return;
+
         const checkbox = document.getElementById(id);
-        return checkbox && checkbox.checked;
+        const box = document.getElementById('box_' + id);
+        const requisitos = correlativas[id];
+
+        if (correlativasAprobadas(requisitos)) {
+          checkbox.disabled = false;
+          box.classList.remove('disabled');
+        } else {
+          checkbox.disabled = true;
+          checkbox.checked = false; // si estaba tildado, se desactiva al bloquear
+          box.classList.add('disabled');
+        }
       });
 
-      const residenciaCheck = document.getElementById('residencia').checked;
+      // Validar residencia:
+      // para desbloquearla: todas las materias aprobadas + finales clave (4to año: ingles4, tradTC2, tradLit2, expresion)
+      const todosPrimerSegTerc = primerAnio.concat(
+        ['trad2','ingles2','gram2','fono2','esp2','lit','term'],
+        ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'],
+      );
+      const todasAprobadas = todosPrimerSegTerc.every(id => {
+        const chk = document.getElementById(id);
+        return chk && chk.checked;
+      });
+      const finalesClave = ['ingles4','tradTC2','tradLit2','expresion'];
+      const finalesAprobados = finalesClave.every(id => {
+        const chk = document.getElementById(id);
+        return chk && chk.checked;
+      });
 
+      const resCheckbox = document.getElementById('residencia');
+      const resBox = document.getElementById('box_residencia');
+
+      if (todasAprobadas && finalesAprobados) {
+        resCheckbox.disabled = false;
+        resBox.classList.remove('disabled');
+      } else {
+        resCheckbox.disabled = true;
+        resCheckbox.checked = false;
+        resBox.classList.add('disabled');
+      }
+
+      // Mostrar celebración si residencia tildada + requisitos finales
       const celebracion = document.getElementById('celebracion');
-      if(todosAprobados && residenciaAprobada && residenciaCheck) {
+      if (!resCheckbox.disabled && resCheckbox.checked) {
         celebracion.style.display = 'block';
       } else {
         celebracion.style.display = 'none';
       }
     }
 
+    // Listener para todos los checkbox
     document.querySelectorAll('input[type=checkbox]').forEach(chk => {
       chk.addEventListener('change', actualizar);
     });
 
+    // Inicializo estado al cargar la página
     actualizar();
   </script>
 </body>
