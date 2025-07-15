@@ -80,6 +80,7 @@
     .anio.amarillo { background: var(--amarillo); }
     .anio.celeste { background: var(--celeste); }
     .anio.verde { background: var(--verde); }
+    .anio.residencia { background: var(--amarillo); }
 
     section.anio h2 {
       margin-top: 0;
@@ -150,14 +151,24 @@
       border-radius: var(--border-radius);
     }
 
-    .residencia {
+    .residencia-text {
+      white-space: pre-wrap;
+      margin-top: 0.8rem;
       font-style: italic;
-      font-weight: 600;
+      color: #555;
+    }
+
+    .celebracion {
+      font-size: 1.8rem;
+      margin-top: 1rem;
       text-align: center;
-      background: #fff2c7;
-      padding: 1rem;
-      border-radius: var(--border-radius);
-      box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+      user-select: none;
+      animation: bounce 1s infinite alternate;
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
     }
 
     @media (max-width: 768px) {
@@ -176,53 +187,105 @@
     <section class="anio rosa">
       <h2>Primer Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Española I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Fonología I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Gramática Inglesa I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Asp. Bás. de la Cultura</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Introd. a los Recursos Informáticos</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles1" onchange="actualizar()"> Lengua Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="esp1" onchange="actualizar()"> Lengua Española I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="trad1" onchange="actualizar()"> Traducción I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="fono1" onchange="actualizar()"> Fonología I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="gram1" onchange="actualizar()"> Gramática Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="cultura" onchange="actualizar()"> Asp. Bás. de la Cultura</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="info" onchange="actualizar()"> Introd. a los Recursos Informáticos</label></div>
       </div>
     </section>
     <section class="anio amarillo">
       <h2>Segundo Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Inglesa II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Gramática Inglesa II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Fonología II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Española II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Introd. a la Literatura</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Terminología y Documentación</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="trad2" onchange="actualizar()"> Traducción II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles2" onchange="actualizar()"> Lengua Inglesa II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="gram2" onchange="actualizar()"> Gramática Inglesa II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="fono2" onchange="actualizar()"> Fonología II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="esp2" onchange="actualizar()"> Lengua Española II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="lit" onchange="actualizar()"> Introd. a la Literatura</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="term" onchange="actualizar()"> Terminología y Documentación</label></div>
       </div>
     </section>
     <section class="anio celeste">
       <h2>Tercer Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción Literaria I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción Técnico-Científica I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Interpretación I</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Inglesa III</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Estructuras Comparadas</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Literatura del Siglo XX</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Análisis de Textos Rioplatenses</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="tradLit1" onchange="actualizar()"> Traducción Literaria I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="tradTC1" onchange="actualizar()"> Traducción Técnico-Científica I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="interp1" onchange="actualizar()"> Interpretación I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles3" onchange="actualizar()"> Lengua Inglesa III</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="estrucComp" onchange="actualizar()"> Estructuras Comparadas</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="lit20" onchange="actualizar()"> Literatura del Siglo XX</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="analRiop" onchange="actualizar()"> Análisis de Textos Rioplatenses</label></div>
       </div>
     </section>
     <section class="anio verde">
       <h2>Cuarto Año</h2>
       <div class="materias-grid">
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción Inversa</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción Literaria II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Traducción Técnico-Científica II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Interpretación II</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lengua Inglesa IV</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Lingüística</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Expresión Oral y Escrita en Español</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Desempeño Profesional</label></div>
-        <div class="materia"><label class="label"><input type="checkbox"> Ética y Deontología</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="tradInv" onchange="actualizar()"> Traducción Inversa</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="tradLit2" onchange="actualizar()"> Traducción Literaria II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="tradTC2" onchange="actualizar()"> Traducción Técnico-Científica II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="interp2" onchange="actualizar()"> Interpretación II</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles4" onchange="actualizar()"> Lengua Inglesa IV</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ling" onchange="actualizar()"> Lingüística</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="expresion" onchange="actualizar()"> Expresión Oral y Escrita en Español</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="desempeno" onchange="actualizar()"> Desempeño Profesional</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="etica" onchange="actualizar()"> Ética y Deontología</label></div>
+      </div>
+    </section>
+    <section class="anio residencia" id="residencia-section">
+      <h2>Residencia (Práctica Profesionalizante)</h2>
+      <div class="residencia-text">
+        Para cursar la residencia, necesitás haber aprobado todas<br>
+        las materias de primero, segundo y tercer año y los finales de:<br>
+        Lengua Inglesa IV, Traducción Técnico-Científica II,<br>
+        Traducción Literaria II, Expresión Oral y Escrita en Español.
+      </div>
+      <div id="celebracion" class="celebracion" style="display:none;">
+        🎉🎓 ¡Casi terminás la carrera! 🎉🎓
       </div>
     </section>
   </main>
+
+  <script>
+    function actualizar() {
+      // IDs de materias clave para desbloquear residencia
+      const requiredIds = [
+        'ingles1','esp1','trad1','fono1','gram1','cultura','info',     // 1er año
+        'trad2','ingles2','gram2','fono2','esp2','lit','term',          // 2do año
+        'tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop', // 3er año
+        'tradInv','tradLit2','tradTC2','interp2','ingles4','ling','expresion','desempeno','etica' // 4to año
+      ];
+      const finalesClave = ['ingles4','tradTC2','tradLit2','expresion']; // Para residencia
+
+      // Verificar que todas las materias estén tildadas
+      let todosAprobados = requiredIds.every(id => {
+        const checkbox = document.getElementById(id);
+        return checkbox && checkbox.checked;
+      });
+
+      // Verificar materias específicas para residencia
+      let residenciaAprobada = finalesClave.every(id => {
+        const checkbox = document.getElementById(id);
+        return checkbox && checkbox.checked;
+      });
+
+      // Mostrar o esconder el mensaje de celebración
+      const celebracion = document.getElementById('celebracion');
+      if(todosAprobados && residenciaAprobada) {
+        celebracion.style.display = 'block';
+      } else {
+        celebracion.style.display = 'none';
+      }
+    }
+
+    // Inicializa el estado al cargar la página
+    document.querySelectorAll('input[type=checkbox]').forEach(chk => {
+      chk.addEventListener('change', actualizar);
+    });
+
+    actualizar();
+  </script>
 </body>
 </html>
