@@ -15,6 +15,7 @@
       --gris: #ccc;
       --border-radius: 16px;
       --transition-time: 0.3s;
+      --ancho-columna: 320px; /* ancho fijo para columnas */
     }
 
     * {
@@ -29,6 +30,7 @@
       line-height: 1.4;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
     header {
@@ -56,7 +58,7 @@
     }
 
     main {
-      max-width: 960px;
+      max-width: 100%;
       margin: 2rem auto 4rem;
       padding: 0 1rem;
       display: flex;
@@ -64,6 +66,19 @@
       gap: 2rem;
       overflow-x: auto;
       scroll-behavior: smooth;
+      scroll-padding: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: #e07cae transparent;
+    }
+    main::-webkit-scrollbar {
+      height: 10px;
+    }
+    main::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    main::-webkit-scrollbar-thumb {
+      background-color: #e07cae;
+      border-radius: 5px;
     }
 
     section.anio {
@@ -72,15 +87,16 @@
       margin-bottom: 2rem;
       box-shadow: 0 5px 12px rgba(0,0,0,0.05);
       transition: background-color var(--transition-time);
-      min-width: 280px;
+      width: var(--ancho-columna);
       flex-shrink: 0;
       display: flex;
       flex-direction: column;
+      scroll-snap-align: start;
     }
     section.anio h2 {
       margin-top: 0;
       font-weight: 600;
-      font-size: 1.7rem;
+      font-size: 1.8rem;
       margin-bottom: 1rem;
       color: #444;
       text-align: center;
@@ -90,20 +106,6 @@
     .anio.amarillo { background: var(--amarillo); }
     .anio.celeste { background: var(--celeste); }
     .anio.verde { background: var(--verde); }
-
-    .aclaracion {
-      background: #fff;
-      padding: 0.9rem 1rem;
-      border-radius: var(--border-radius);
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      border-left: 5px solid var(--gris);
-      color: #555;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-      user-select: none;
-      max-width: 280px;
-      white-space: normal;
-    }
 
     .materias-grid {
       display: grid;
@@ -123,6 +125,8 @@
       transition: transform var(--transition-time), box-shadow var(--transition-time);
       user-select: none;
       position: relative;
+      font-size: 1rem;
+      min-height: 44px;
     }
     .materia:hover:not(.disabled) {
       transform: translateY(-5px);
@@ -140,7 +144,6 @@
       display: flex;
       align-items: center;
       gap: 0.7rem;
-      font-size: 1rem;
       font-weight: 600;
       color: var(--texto);
       border-radius: var(--border-radius);
@@ -162,14 +165,6 @@
       cursor: default;
     }
 
-    .nota {
-      font-size: 0.82rem;
-      color: #a04a65;
-      font-style: italic;
-      margin-top: 0.8rem;
-      user-select: none;
-    }
-
     input[type="checkbox"] {
       transition: transform 0.15s ease-in-out;
     }
@@ -184,7 +179,7 @@
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
       font-style: italic;
       color: #6b541d;
-      max-width: 600px;
+      max-width: 300px;
       margin: 0 auto;
       text-align: center;
       font-weight: 600;
@@ -192,6 +187,8 @@
       display: flex;
       align-items: center;
       gap: 0.6rem;
+      min-height: 44px;
+      user-select: none;
     }
 
     .celebracion {
@@ -206,15 +203,9 @@
         flex-direction: column;
         margin: 1rem;
       }
-      .aclaracion {
-        max-width: 100%;
-      }
       section.anio {
-        min-width: auto;
+        width: 100% !important;
         margin-bottom: 2rem;
-      }
-      .materias-grid {
-        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -230,43 +221,40 @@
     <section class="anio rosa" id="anio1">
       <h2>Primer Año</h2>
       <div class="materias-grid">
-        <div class="materia" id="box_ingles1"><label class="label"><input type="checkbox" id="ingles1"> Lengua Inglesa I</label></div>
-        <div class="materia" id="box_esp1"><label class="label"><input type="checkbox" id="esp1"> Lengua Española I</label></div>
-        <div class="materia" id="box_trad1"><label class="label"><input type="checkbox" id="trad1"> Traducción I</label></div>
-        <div class="materia" id="box_fono1"><label class="label"><input type="checkbox" id="fono1"> Fonología I</label></div>
-        <div class="materia" id="box_gram1"><label class="label"><input type="checkbox" id="gram1"> Gramática Inglesa I</label></div>
-        <div class="materia" id="box_cultura"><label class="label"><input type="checkbox" id="cultura"> Asp. Bás. de la Cultura</label></div>
-        <div class="materia" id="box_info"><label class="label"><input type="checkbox" id="info"> Introd. a los Recursos Informáticos</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="ingles1" onchange="actualizar()"> Lengua Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="esp1" onchange="actualizar()"> Lengua Española I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="trad1" onchange="actualizar()"> Traducción I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="fono1" onchange="actualizar()"> Fonología I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="gram1" onchange="actualizar()"> Gramática Inglesa I</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="cultura" onchange="actualizar()"> Asp. Bás. de la Cultura</label></div>
+        <div class="materia"><label class="label"><input type="checkbox" id="info" onchange="actualizar()"> Introd. a los Recursos Informáticos</label></div>
       </div>
     </section>
 
     <!-- Segundo Año -->
     <section class="anio amarillo" id="anio2">
       <h2>Segundo Año</h2>
-      <div class="aclaracion">
-        *Para cursar materias de segundo año,<br> necesitás haber aprobado tres finales <br>de materias de primer año.*
-      </div>
       <div class="materias-grid">
-        <div class="materia disabled" id="box_trad2">
-          <label class="label"><input type="checkbox" id="trad2" disabled> Traducción II</label>
+        <div class="materia disabled" id="trad2-box">
+          <label class="label"><input type="checkbox" id="trad2" disabled onchange="actualizar()"> Traducción II</label>
         </div>
-        <div class="materia disabled" id="box_ingles2">
-          <label class="label"><input type="checkbox" id="ingles2" disabled> Lengua Inglesa II</label>
+        <div class="materia disabled" id="ingles2-box">
+          <label class="label"><input type="checkbox" id="ingles2" disabled onchange="actualizar()"> Lengua Inglesa II</label>
         </div>
-        <div class="materia disabled" id="box_gram2">
-          <label class="label"><input type="checkbox" id="gram2" disabled> Gramática Inglesa II</label>
+        <div class="materia disabled" id="gram2-box">
+          <label class="label"><input type="checkbox" id="gram2" disabled onchange="actualizar()"> Gramática Inglesa II</label>
         </div>
-        <div class="materia disabled" id="box_fono2">
-          <label class="label"><input type="checkbox" id="fono2" disabled> Fonología II</label>
+        <div class="materia disabled" id="fono2-box">
+          <label class="label"><input type="checkbox" id="fono2" disabled onchange="actualizar()"> Fonología II</label>
         </div>
-        <div class="materia disabled" id="box_esp2">
-          <label class="label"><input type="checkbox" id="esp2" disabled> Lengua Española II</label>
+        <div class="materia disabled" id="esp2-box">
+          <label class="label"><input type="checkbox" id="esp2" disabled onchange="actualizar()"> Lengua Española II</label>
         </div>
-        <div class="materia disabled" id="box_lit">
-          <label class="label"><input type="checkbox" id="lit" disabled> Introd. a la Literatura</label>
+        <div class="materia disabled" id="lit-box">
+          <label class="label"><input type="checkbox" id="lit" disabled onchange="actualizar()"> Introd. a la Literatura</label>
         </div>
-        <div class="materia disabled" id="box_term">
-          <label class="label"><input type="checkbox" id="term" disabled> Terminología y Documentación (taller)</label>
+        <div class="materia disabled" id="term-box">
+          <label class="label"><input type="checkbox" id="term" disabled onchange="actualizar()"> Terminología y Documentación (taller)</label>
         </div>
       </div>
     </section>
@@ -274,31 +262,27 @@
     <!-- Tercer Año -->
     <section class="anio celeste" id="anio3">
       <h2>Tercer Año</h2>
-      <div class="aclaracion">
-        *Para cursar materias de tercer año,<br> necesitás haber aprobado los finales de todas las materias de primer año <br>y tres finales de materias de segundo año.*
-      </div>
       <div class="materias-grid">
-        <div class="materia disabled" id="box_tradLit1">
-          <label class="label"><input type="checkbox" id="tradLit1" disabled> Traducción Literaria I</label>
+        <div class="materia disabled" id="tradLit1-box">
+          <label class="label"><input type="checkbox" id="tradLit1" disabled onchange="actualizar()"> Traducción Literaria I</label>
         </div>
-        <div class="materia disabled" id="box_tradTC1">
-          <label class="label"><input type="checkbox" id="tradTC1" disabled> Traducción Técnico-Científica I</label>
+        <div class="materia disabled" id="tradTC1-box">
+          <label class="label"><input type="checkbox" id="tradTC1" disabled onchange="actualizar()"> Traducción Técnico-Científica I</label>
         </div>
-        <div class="materia disabled" id="box_interp1">
-          <label class="label"><input type="checkbox" id="interp1" disabled> Interpretación I (taller)</label>
-          <div class="nota">*Se habilita al aprobar todas las materias de primer año*</div>
+        <div class="materia disabled" id="interp1-box">
+          <label class="label"><input type="checkbox" id="interp1" disabled onchange="actualizar()"> Interpretación I (taller)</label>
         </div>
-        <div class="materia disabled" id="box_ingles3">
-          <label class="label"><input type="checkbox" id="ingles3" disabled> Lengua Inglesa III</label>
+        <div class="materia disabled" id="ingles3-box">
+          <label class="label"><input type="checkbox" id="ingles3" disabled onchange="actualizar()"> Lengua Inglesa III</label>
         </div>
-        <div class="materia disabled" id="box_estrucComp">
-          <label class="label"><input type="checkbox" id="estrucComp" disabled> Estructuras Comparadas</label>
+        <div class="materia disabled" id="estruc-comp-box">
+          <label class="label"><input type="checkbox" id="estrucComp" disabled onchange="actualizar()"> Estructuras Comparadas</label>
         </div>
-        <div class="materia disabled" id="box_lit20">
-          <label class="label"><input type="checkbox" id="lit20" disabled> Literatura del Siglo XX</label>
+        <div class="materia disabled" id="lit20-box">
+          <label class="label"><input type="checkbox" id="lit20" disabled onchange="actualizar()"> Literatura del Siglo XX</label>
         </div>
-        <div class="materia disabled" id="box_analRiop">
-          <label class="label"><input type="checkbox" id="analRiop" disabled> Análisis de Textos Rioplatenses</label>
+        <div class="materia disabled" id="anal-riop-box">
+          <label class="label"><input type="checkbox" id="analRiop" disabled onchange="actualizar()"> Análisis de Textos Rioplatenses</label>
         </div>
       </div>
     </section>
@@ -306,285 +290,170 @@
     <!-- Cuarto Año -->
     <section class="anio verde" id="anio4">
       <h2>Cuarto Año</h2>
-      <div class="aclaracion">
-        *Para cursar materias de cuarto año,<br> necesitás haber aprobado los finales de todas las materias de segundo año <br>y tres finales de materias de tercer año.*
-      </div>
       <div class="materias-grid">
-        <div class="materia disabled" id="box_tradInv">
-          <label class="label"><input type="checkbox" id="tradInv" disabled> Traducción Inversa</label>
+        <div class="materia disabled" id="tradInv-box">
+          <label class="label"><input type="checkbox" id="tradInv" disabled onchange="actualizar()"> Traducción Inversa</label>
         </div>
-        <div class="materia disabled" id="box_tradLit2">
-          <label class="label"><input type="checkbox" id="tradLit2" disabled> Traducción Literaria II</label>
+        <div class="materia disabled" id="tradLit2-box">
+          <label class="label"><input type="checkbox" id="tradLit2" disabled onchange="actualizar()"> Traducción Literaria II</label>
         </div>
-        <div class="materia disabled" id="box_tradTC2">
-          <label class="label"><input type="checkbox" id="tradTC2" disabled> Traducción Técnico-Científica II</label>
+        <div class="materia disabled" id="tradTC2-box">
+          <label class="label"><input type="checkbox" id="tradTC2" disabled onchange="actualizar()"> Traducción Técnico-Científica II</label>
         </div>
-        <div class="materia disabled" id="box_interp2">
-          <label class="label"><input type="checkbox" id="interp2" disabled> Interpretación II (taller)</label>
-          <div class="nota">*Se habilita al aprobar todas las materias de segundo año*</div>
+        <div class="materia disabled" id="interp2-box">
+          <label class="label"><input type="checkbox" id="interp2" disabled onchange="actualizar()"> Interpretación II (taller)</label>
         </div>
-        <div class="materia disabled" id="box_etica">
-          <label class="label"><input type="checkbox" id="etica" disabled> Ética</label>
-          <div class="nota">*Se habilita al aprobar todas las materias de segundo año*</div>
+        <div class="materia disabled" id="ingles4-box">
+          <label class="label"><input type="checkbox" id="ingles4" disabled onchange="actualizar()"> Lengua Inglesa IV</label>
         </div>
-        <div class="materia disabled" id="box_ingles4">
-          <label class="label"><input type="checkbox" id="ingles4" disabled> Lengua Inglesa IV</label>
+        <div class="materia disabled" id="ling-box">
+          <label class="label"><input type="checkbox" id="ling" disabled onchange="actualizar()"> Lingüística</label>
         </div>
-        <div class="materia disabled" id="box_ling">
-          <label class="label"><input type="checkbox" id="ling" disabled> Lingüística</label>
+        <div class="materia disabled" id="expresion-box">
+          <label class="label"><input type="checkbox" id="expresion" disabled onchange="actualizar()"> Expresión Oral y Escrita en Español</label>
         </div>
-        <div class="materia disabled" id="box_expresion">
-          <label class="label"><input type="checkbox" id="expresion" disabled> Expresión Oral y Escrita en Español</label>
+        <div class="materia disabled" id="desempeno-box">
+          <label class="label"><input type="checkbox" id="desempeno" disabled onchange="actualizar()"> Desempeño Profesional (taller)</label>
+        </div>
+        <div class="materia disabled" id="etica-box">
+          <label class="label"><input type="checkbox" id="etica" disabled onchange="actualizar()"> Ética y Deontología (seminario)</label>
         </div>
       </div>
     </section>
 
     <!-- Residencia -->
-    <section class="anio rosa" id="residenciaSection" style="min-width: 360px;">
-      <h2>Residencia</h2>
-      <div class="residencia disabled" id="box_residencia" title="Se habilita al aprobar todos los años y finales necesarios">
-        <label class="label" style="cursor:pointer;">
-          <input type="checkbox" id="residencia" disabled> 
-          Residencia (Práctica Profesionalizante)
-        </label>
-        <span class="celebracion" id="celebracion" style="display:none;">🎉🎊 ¡Casi terminás la carrera! 🎊🎉</span>
+    <section class="anio amarillo" id="residencia-section">
+      <h2>Residencia (Práctica Profesionalizante)</h2>
+      <div class="residencia disabled" id="residencia-box" onclick="toggleResidencia()">
+        <input type="checkbox" id="residencia" disabled onchange="actualizar()" />
+        <label for="residencia" style="flex-grow:1; text-align:center; cursor:pointer;">Residencia</label>
       </div>
-      <p style="font-size: 0.9rem; margin-top: 0.6rem; color: #555; max-width: 340px;">
-        Para cursar la residencia, necesitás haber aprobado todas las materias de primero, segundo y tercer año, y los finales de: Lengua Inglesa IV, Traducción Técnico-Científica II, Traducción Literaria II, Expresión Oral y Escrita en Español.
-      </p>
+      <div id="celebracion" class="celebracion" style="display:none;">🎉 ¡Casi terminás la carrera! 🎉</div>
     </section>
   </main>
 
   <script>
-    // Referencias a materias con sus checkboxes
-    const materias = {
-      // 1er año
-      ingles1: document.getElementById('ingles1'),
-      esp1: document.getElementById('esp1'),
-      trad1: document.getElementById('trad1'),
-      fono1: document.getElementById('fono1'),
-      gram1: document.getElementById('gram1'),
-      cultura: document.getElementById('cultura'),
-      info: document.getElementById('info'),
-
-      // 2do año
-      trad2: document.getElementById('trad2'),
-      ingles2: document.getElementById('ingles2'),
-      gram2: document.getElementById('gram2'),
-      fono2: document.getElementById('fono2'),
-      esp2: document.getElementById('esp2'),
-      lit: document.getElementById('lit'),
-      term: document.getElementById('term'),
-
-      // 3er año
-      tradLit1: document.getElementById('tradLit1'),
-      tradTC1: document.getElementById('tradTC1'),
-      interp1: document.getElementById('interp1'),
-      ingles3: document.getElementById('ingles3'),
-      estrucComp: document.getElementById('estrucComp'),
-      lit20: document.getElementById('lit20'),
-      analRiop: document.getElementById('analRiop'),
-
-      // 4to año
-      tradInv: document.getElementById('tradInv'),
-      tradLit2: document.getElementById('tradLit2'),
-      tradTC2: document.getElementById('tradTC2'),
-      interp2: document.getElementById('interp2'),
-      etica: document.getElementById('etica'),
-      ingles4: document.getElementById('ingles4'),
-      ling: document.getElementById('ling'),
-      expresion: document.getElementById('expresion'),
-
-      // Residencia
-      residencia: document.getElementById('residencia'),
-    };
-
-    // Divs con clase materia para habilitar/deshabilitar
-    function getMateriaDiv(id) {
-      return document.getElementById('box_' + id);
+    function contarAprobadas(ids) {
+      return ids.reduce((count, id) => count + (document.getElementById(id).checked ? 1 : 0), 0);
     }
 
-    // Contar cuántas materias del 1er año están aprobadas
-    function countAprobadasPrimerAnio() {
-      const keys = ['ingles1','esp1','trad1','fono1','gram1','cultura','info'];
-      return keys.filter(k => materias[k].checked).length;
+    function todasAprobadas(ids) {
+      return ids.every(id => document.getElementById(id).checked);
     }
 
-    // Verificar si todas materias de 1er año están aprobadas
-    function todasPrimerAnioAprobadas() {
-      const keys = ['ingles1','esp1','trad1','fono1','gram1','cultura','info'];
-      return keys.every(k => materias[k].checked);
-    }
+    function actualizar() {
+      // IDs materias por año
+      const primerAnio = ['ingles1','esp1','trad1','fono1','gram1','cultura','info'];
+      const segundoAnio = ['trad2','ingles2','gram2','fono2','esp2','lit','term'];
+      const tercerAnio = ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'];
+      const cuartoAnio = ['tradInv','tradLit2','tradTC2','interp2','ingles4','ling','expresion','desempeno','etica'];
 
-    // Contar cuántas materias del 2do año están aprobadas
-    function countAprobadasSegundoAnio() {
-      const keys = ['trad2','ingles2','gram2','fono2','esp2','lit','term'];
-      return keys.filter(k => materias[k].checked).length;
-    }
+      // Primer año: siempre habilitadas
+      primerAnio.forEach(id => {
+        document.getElementById(id).disabled = false;
+        document.getElementById(id + '-box').classList.remove('disabled');
+      });
 
-    // Verificar si todas materias de 2do año están aprobadas
-    function todasSegundoAnioAprobadas() {
-      const keys = ['trad2','ingles2','gram2','fono2','esp2','lit','term'];
-      return keys.every(k => materias[k].checked);
-    }
-
-    // Contar cuántas materias del 3er año están aprobadas
-    function countAprobadasTercerAnio() {
-      const keys = ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'];
-      return keys.filter(k => materias[k].checked).length;
-    }
-
-    // Verificar si todas materias de 3er año están aprobadas
-    function todasTercerAnioAprobadas() {
-      const keys = ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'];
-      return keys.every(k => materias[k].checked);
-    }
-
-    // Contar cuántas materias del 4to año están aprobadas
-    function countAprobadasCuartoAnio() {
-      const keys = ['tradInv','tradLit2','tradTC2','interp2','etica','ingles4','ling','expresion'];
-      return keys.filter(k => materias[k].checked).length;
-    }
-
-    // Verificar si todas materias de 4to año están aprobadas
-    function todasCuartoAnioAprobadas() {
-      const keys = ['tradInv','tradLit2','tradTC2','interp2','etica','ingles4','ling','expresion'];
-      return keys.every(k => materias[k].checked);
-    }
-
-    // Función para actualizar habilitación de materias segun correlativas y reglas
-    function actualizarEstadoMaterias() {
-      // -- Segundo año --
-      // Desbloquear materias de segundo año si al menos 3 del primer año aprobadas
-      let primerAnioAprobCount = countAprobadasPrimerAnio();
-      ['trad2','ingles2','gram2','fono2','esp2','lit','term'].forEach(id => {
-        const div = getMateriaDiv(id);
-        const checkbox = materias[id];
-        if (primerAnioAprobCount >= 3) {
-          div.classList.remove('disabled');
-          checkbox.disabled = false;
+      // Segundo año: habilitar si al menos 3 materias de primer año aprobadas
+      const primerAnioAprobadas = contarAprobadas(primerAnio);
+      segundoAnio.forEach(id => {
+        const box = document.getElementById(id + '-box');
+        if(primerAnioAprobadas >= 3) {
+          document.getElementById(id).disabled = false;
+          box.classList.remove('disabled');
         } else {
-          div.classList.add('disabled');
-          checkbox.disabled = true;
-          checkbox.checked = false;
+          document.getElementById(id).disabled = true;
+          document.getElementById(id).checked = false;
+          box.classList.add('disabled');
         }
       });
 
-      // -- Tercer año --
-      // Para tercer año materias desbloquear si:
-      // todas materias primer año aprobadas + al menos 3 materias de segundo año aprobadas
-      let segundoAnioAprobCount = countAprobadasSegundoAnio();
-      let tercerAnioIds = ['tradLit1','tradTC1','ingles3','estrucComp','lit20','analRiop'];
-      // desbloquear esos si cumple condiciones
-      if (todasPrimerAnioAprobadas() && segundoAnioAprobCount >= 3) {
-        tercerAnioIds.forEach(id => {
-          const div = getMateriaDiv(id);
-          const checkbox = materias[id];
-          div.classList.remove('disabled');
-          checkbox.disabled = false;
-        });
+      // Tercer año: habilitar si todas de primer año aprobadas + al menos 3 de segundo año aprobadas
+      const segundoAnioAprobadas = contarAprobadas(segundoAnio);
+      const primerAnioTodas = todasAprobadas(primerAnio);
+      tercerAnio.forEach(id => {
+        const box = document.getElementById(id + '-box');
+        if(primerAnioTodas && segundoAnioAprobadas >= 3) {
+          document.getElementById(id).disabled = false;
+          box.classList.remove('disabled');
+        } else {
+          document.getElementById(id).disabled = true;
+          document.getElementById(id).checked = false;
+          box.classList.add('disabled');
+        }
+      });
+
+      // Cuarto año: habilitar si todas de segundo año aprobadas + al menos 3 de tercer año aprobadas
+      const segundoAnioTodas = todasAprobadas(segundoAnio);
+      const tercerAnioAprobadas = contarAprobadas(tercerAnio);
+      cuartoAnio.forEach(id => {
+        const box = document.getElementById(id + '-box');
+        if(segundoAnioTodas && tercerAnioAprobadas >= 3) {
+          document.getElementById(id).disabled = false;
+          box.classList.remove('disabled');
+        } else {
+          document.getElementById(id).disabled = true;
+          document.getElementById(id).checked = false;
+          box.classList.add('disabled');
+        }
+      });
+
+      // Residencia habilitar si:
+      // 1) Todas de primer año aprobadas
+      // 2) Todas de segundo año aprobadas
+      // 3) Todas de tercer año aprobadas
+      // 4) Los finales específicos de cuarto año aprobados: Inglesa IV, Trad TC II, Trad Lit II, Expresión Oral y Escrita
+      const cuartoEspecificas = ['ingles4','tradTC2','tradLit2','expresion'];
+      const cuartoEspecificasTodas = todasAprobadas(cuartoEspecificas);
+      const tercerAnioTodas = todasAprobadas(tercerAnio);
+
+      const residenciaBox = document.getElementById('residencia-box');
+      const residenciaCheckbox = document.getElementById('residencia');
+
+      if(primerAnioTodas && segundoAnioTodas && tercerAnioTodas && cuartoEspecificasTodas) {
+        residenciaCheckbox.disabled = false;
+        residenciaBox.classList.remove('disabled');
       } else {
-        tercerAnioIds.forEach(id => {
-          const div = getMateriaDiv(id);
-          const checkbox = materias[id];
-          div.classList.add('disabled');
-          checkbox.disabled = true;
-          checkbox.checked = false;
-        });
+        residenciaCheckbox.disabled = true;
+        residenciaCheckbox.checked = false;
+        residenciaBox.classList.add('disabled');
       }
 
-      // Interpretación I solo si todas materias primer año aprobadas
-      const interp1Div = getMateriaDiv('interp1');
-      const interp1Checkbox = materias.interp1;
-      if (todasPrimerAnioAprobadas()) {
-        interp1Div.classList.remove('disabled');
-        interp1Checkbox.disabled = false;
+      // Mostrar mensaje celebración si residencia aprobada
+      const celebracion = document.getElementById('celebracion');
+      if(residenciaCheckbox.checked) {
+        celebracion.style.display = 'block';
       } else {
-        interp1Div.classList.add('disabled');
-        interp1Checkbox.disabled = true;
-        interp1Checkbox.checked = false;
-      }
-
-      // -- Cuarto año --
-      // Desbloquear materias de cuarto año si:
-      // todas materias 2do año aprobadas + al menos 3 materias tercer año aprobadas
-      let tercerAnioAprobCount = countAprobadasTercerAnio();
-      let cuartoAnioIds = ['tradInv','tradLit2','tradTC2','ingles4','ling','expresion'];
-      if (todasSegundoAnioAprobadas() && tercerAnioAprobCount >=3) {
-        cuartoAnioIds.forEach(id => {
-          const div = getMateriaDiv(id);
-          const checkbox = materias[id];
-          div.classList.remove('disabled');
-          checkbox.disabled = false;
-        });
-      } else {
-        cuartoAnioIds.forEach(id => {
-          const div = getMateriaDiv(id);
-          const checkbox = materias[id];
-          div.classList.add('disabled');
-          checkbox.disabled = true;
-          checkbox.checked = false;
-        });
-      }
-
-      // Interpretación II y Ética solo si todas materias 2do año aprobadas
-      const interp2Div = getMateriaDiv('interp2');
-      const interp2Checkbox = materias.interp2;
-      const eticaDiv = getMateriaDiv('etica');
-      const eticaCheckbox = materias.etica;
-
-      if (todasSegundoAnioAprobadas()) {
-        interp2Div.classList.remove('disabled');
-        interp2Checkbox.disabled = false;
-        eticaDiv.classList.remove('disabled');
-        eticaCheckbox.disabled = false;
-      } else {
-        interp2Div.classList.add('disabled');
-        interp2Checkbox.disabled = true;
-        interp2Checkbox.checked = false;
-
-        eticaDiv.classList.add('disabled');
-        eticaCheckbox.disabled = true;
-        eticaCheckbox.checked = false;
-      }
-
-      // -- Residencia --
-      // Se habilita si:
-      // Todas materias 1ro, 2do, 3ro aprobadas y finales de 4to año específicas (inglés IV, Trad. TC II, Trad. Lit II, Expresión Oral y Escrita)
-
-      const residenciaDiv = document.getElementById('box_residencia');
-      const residenciaCheck = materias.residencia;
-      const celebracionSpan = document.getElementById('celebracion');
-
-      const ingles4Ok = materias.ingles4.checked;
-      const tradTC2Ok = materias.tradTC2.checked;
-      const tradLit2Ok = materias.tradLit2.checked;
-      const expresionOk = materias.expresion.checked;
-
-      if (
-        todasPrimerAnioAprobadas() &&
-        todasSegundoAnioAprobadas() &&
-        todasTercerAnioAprobadas() &&
-        ingles4Ok && tradTC2Ok && tradLit2Ok && expresionOk
-      ) {
-        residenciaDiv.classList.remove('disabled');
-        residenciaCheck.disabled = false;
-        celebracionSpan.style.display = 'inline';
-      } else {
-        residenciaDiv.classList.add('disabled');
-        residenciaCheck.disabled = true;
-        residenciaCheck.checked = false;
-        celebracionSpan.style.display = 'none';
+        celebracion.style.display = 'none';
       }
     }
 
-    // Agregar evento a cada checkbox para actualizar la malla al cambiar
-    Object.values(materias).forEach(checkbox => {
-      checkbox.addEventListener('change', actualizarEstadoMaterias);
+    // Permitir clic en todo el cuadro de residencia para marcar checkbox si habilitado
+    function toggleResidencia() {
+      const res = document.getElementById('residencia');
+      if(!res.disabled) {
+        res.checked = !res.checked;
+        actualizar();
+      }
+    }
+
+    // IDs de cajas para manejar la clase disabled
+    ['ingles1','esp1','trad1','fono1','gram1','cultura','info',
+     'trad2','ingles2','gram2','fono2','esp2','lit','term',
+     'tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop',
+     'tradInv','tradLit2','tradTC2','interp2','ingles4','ling','expresion','desempeno','etica'].forEach(id => {
+      // Añadimos '-box' divs manualmente si no existen para primer año materias (que no tienen box)
+      if(!document.getElementById(id + '-box')) {
+        const checkbox = document.getElementById(id);
+        if(checkbox) {
+          const wrapper = checkbox.closest('.materia');
+          if(wrapper) wrapper.id = id + '-box';
+        }
+      }
     });
 
-    // Inicializamos la malla
-    actualizarEstadoMaterias();
+    // Inicializar estado
+    window.onload = actualizar;
   </script>
 </body>
 </html>
