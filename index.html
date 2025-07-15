@@ -19,60 +19,77 @@
     }
     * { box-sizing: border-box; }
     body {
-      font-family: 'Quicksand',sans-serif; background: #fafafa;
-      color: var(--texto); margin:0; padding:0;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      font-family: 'Quicksand', sans-serif;
+      background: #fafafa;
+      color: var(--texto);
+      margin: 0; padding: 0;
       overflow-x: hidden;
     }
     header {
-      background: #FFF0F1; padding:2rem 1rem;
-      text-align:center; border-bottom:2px solid var(--gris);
+      background: #FFF0F1;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-bottom: 2px solid var(--gris);
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
     }
     header h1 {
-      margin:0; font-size:2.25rem; font-weight:600;
-      color:#5a5a5a;
+      margin: 0;
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: #5a5a5a;
     }
     header p {
-      margin: .5rem 0 0; font-style:italic;
-      color:#666;
+      margin: 0.5rem 0 0;
+      font-style: italic;
+      color: #666;
     }
     main {
-      display:flex; gap:2rem; overflow-x:auto;
-      scroll-behavior:smooth; padding:2rem 1rem;
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding: 2rem 1rem;
     }
     main::-webkit-scrollbar {
-      height:10px;
+      height: 10px;
     }
     main::-webkit-scrollbar-thumb {
-      background-color: #e07cae; border-radius:5px;
+      background-color: #e07cae;
+      border-radius: 5px;
     }
     section.anio {
       width: var(--ancho-columna);
-      padding:1.5rem 1rem 2rem;
+      padding: 1.5rem 1rem 2rem;
       border-radius: var(--border-radius);
       box-shadow: 0 5px 12px rgba(0,0,0,0.05);
-      display:flex; flex-direction:column;
-      scroll-snap-align:start;
+      display: flex;
+      flex-direction: column;
+      scroll-snap-align: start;
     }
     section.anio h2 {
-      text-align:center; margin:0 0 1rem 0;
-      font-size:1.8rem; font-weight:600;
+      text-align: center;
+      margin: 0 0 1rem 0;
+      font-size: 1.8rem;
+      font-weight: 600;
     }
     .anio.rosa { background: var(--rosa); }
     .anio.amarillo { background: var(--amarillo); }
     .anio.celeste { background: var(--celeste); }
     .anio.verde { background: var(--verde); }
     .materias-grid {
-      display:grid; grid-template-columns:1fr; gap:1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
     }
     .materia {
-      background:white; padding:1rem 1rem;
+      background: white;
+      padding: 1rem 1rem;
       border-radius: var(--border-radius);
       box-shadow: 0 3px 10px rgba(0,0,0,0.07);
-      display:flex; align-items:center;
-      cursor:pointer; font-weight:600;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
       transition: all var(--transition-time);
     }
     .materia:hover:not(.disabled) {
@@ -80,39 +97,50 @@
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
     .materia.disabled {
-      opacity:.4; filter:grayscale(30%);
-      pointer-events:none; text-decoration:line-through;
+      opacity: 0.4;
+      filter: grayscale(30%);
+      pointer-events: none;
+      text-decoration: line-through;
     }
     .materia input {
-      margin-right:0.7rem; width:22px; height:22px;
-      accent-color:#d57fa1; border-radius:6px;
+      margin-right: 0.7rem;
+      width: 22px;
+      height: 22px;
+      accent-color: #d57fa1;
+      border-radius: 6px;
     }
     .materia input:checked {
       transform: scale(1.1);
     }
     .materia input:hover:not(:disabled) {
-      accent-color:#e07cae;
+      accent-color: #e07cae;
     }
     .residencia {
-      background:#fff2c7; padding:1rem;
+      background: #fff2c7;
+      padding: 1rem;
       border-radius: var(--border-radius);
       box-shadow: 0 3px 8px rgba(0,0,0,0.05);
-      font-weight:600; display:flex;
-      align-items:center; gap:.7rem;
-      margin:1rem auto 0;
-      cursor:pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin: 1rem auto 0;
+      cursor: pointer;
     }
     .residencia.disabled {
-      opacity:.4; filter:grayscale(30%);
-      pointer-events:none;
+      opacity: 0.4;
+      filter: grayscale(30%);
+      pointer-events: none;
     }
     .celebracion {
-      text-align:center; font-size:1.5rem;
-      margin-top:1rem; color:#4b8b3b;
+      text-align: center;
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      color: #4b8b3b;
     }
     @media (max-width:600px) {
-      main { flex-direction:column; padding:1rem; }
-      section.anio { width:auto; margin-bottom:2rem; }
+      main { flex-direction: column; padding: 1rem; }
+      section.anio { width: auto; margin-bottom: 2rem; }
     }
   </style>
 </head>
@@ -188,12 +216,11 @@
         <input type="checkbox" id="residencia" onchange="actualizar()" disabled>
         <label for="residencia">Residencia</label>
       </div>
-      <div class="celebracion" id="celebracion" style="display:none;">¡Felicitaciones! 🎉</div>
+      <div class="celebracion" id="celebracion" style="display:none;">¡Felicitaciones!</div>
     </section>
   </main>
 
   <script>
-    // correlativas por materia
     const correl = {
       trad2: ['ingles1','gram1','trad1','esp1'],
       ingles2: ['ingles1','gram1','fono1'],
@@ -217,7 +244,10 @@
       ling: ['tradLit1','tradTC1','estrucComp'],
       expresion: ['analRiop','estrucComp'],
       desempeno: ['tradTC1','tradLit1'],
-      etica: []
+      etica: [
+        'ingles1','esp1','trad1','fono1','gram1','cultura','info',
+        'trad2','ingles2','gram2','fono2','esp2','lit','term'
+      ]
     };
 
     function tieneCorrel(id) {
@@ -225,30 +255,44 @@
     }
 
     function actualizar() {
+      const estado = {};
+
       // habilitar 1° año siempre
       ['ingles1','esp1','trad1','fono1','gram1','cultura','info'].forEach(id => {
         const cb = document.getElementById(id), box=cb.parentElement;
-        cb.disabled=false; box.classList.remove('disabled');
+        cb.disabled = false;
+        box.classList.remove('disabled');
+        estado[id] = cb.checked;
       });
 
       // resto materias según correlativas
       Object.keys(correl).forEach(id => {
-        const cb=document.getElementById(id), box=cb.parentElement;
+        const cb = document.getElementById(id), box = cb.parentElement;
         if(tieneCorrel(id)) {
-          cb.disabled=false; box.classList.remove('disabled');
+          cb.disabled = false;
+          box.classList.remove('disabled');
         } else {
-          cb.disabled=true; cb.checked=false; box.classList.add('disabled');
+          cb.disabled = true;
+          cb.checked = false;
+          box.classList.add('disabled');
         }
+        estado[id] = cb.checked;
       });
 
-      // residencia: validamos materias de 3° aprobadas y finales clave del 4°
-      const todas3 = ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'].every(i=>document. getElementById(i).checked);
-      const finales4 = ['ingles4','tradTC2','tradLit2','expresion'].every(i=>document.getElementById(i).checked);
-      const resCB = document.getElementById('residencia'), resBox=document.getElementById('residenciaBox');
+      // guardar estado en localStorage
+      localStorage.setItem("estadoMaterias", JSON.stringify(estado));
+
+      // validar residencia
+      const todas3 = ['tradLit1','tradTC1','interp1','ingles3','estrucComp','lit20','analRiop'].every(i => document.getElementById(i).checked);
+      const finales4 = ['ingles4','tradTC2','tradLit2','expresion'].every(i => document.getElementById(i).checked);
+      const resCB = document.getElementById('residencia'), resBox = document.getElementById('residenciaBox');
       if(todas3 && finales4) {
-        resCB.disabled=false; resBox.classList.remove('disabled');
+        resCB.disabled = false;
+        resBox.classList.remove('disabled');
       } else {
-        resCB.disabled=true; resCB.checked=false; resBox.classList.add('disabled');
+        resCB.disabled = true;
+        resCB.checked = false;
+        resBox.classList.add('disabled');
       }
 
       // mostrar mensaje final
@@ -263,7 +307,17 @@
       }
     }
 
-    window.onload = actualizar;
+    window.onload = () => {
+      const saved = localStorage.getItem("estadoMaterias");
+      if(saved) {
+        const estado = JSON.parse(saved);
+        Object.keys(estado).forEach(id => {
+          const cb = document.getElementById(id);
+          if(cb) cb.checked = estado[id];
+        });
+      }
+      actualizar();
+    };
   </script>
 </body>
 </html>
