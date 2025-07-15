@@ -126,6 +126,7 @@
       width: 22px;
       height: 22px;
       accent-color: #d57fa1;
+      cursor: pointer;
     }
 
     .correlativas {
@@ -242,6 +243,12 @@
         Lengua Inglesa IV, Traducción Técnico-Científica II,<br>
         Traducción Literaria II, Expresión Oral y Escrita en Español.
       </div>
+      <div class="materia">
+        <label class="label">
+          <input type="checkbox" id="residencia" onchange="actualizar()">
+          Residencia completada
+        </label>
+      </div>
       <div id="celebracion" class="celebracion" style="display:none;">
         🎉🎓 ¡Casi terminás la carrera! 🎉🎓
       </div>
@@ -250,7 +257,6 @@
 
   <script>
     function actualizar() {
-      // IDs de materias clave para desbloquear residencia
       const requiredIds = [
         'ingles1','esp1','trad1','fono1','gram1','cultura','info',     // 1er año
         'trad2','ingles2','gram2','fono2','esp2','lit','term',          // 2do año
@@ -259,28 +265,26 @@
       ];
       const finalesClave = ['ingles4','tradTC2','tradLit2','expresion']; // Para residencia
 
-      // Verificar que todas las materias estén tildadas
       let todosAprobados = requiredIds.every(id => {
         const checkbox = document.getElementById(id);
         return checkbox && checkbox.checked;
       });
 
-      // Verificar materias específicas para residencia
       let residenciaAprobada = finalesClave.every(id => {
         const checkbox = document.getElementById(id);
         return checkbox && checkbox.checked;
       });
 
-      // Mostrar o esconder el mensaje de celebración
+      const residenciaCheck = document.getElementById('residencia').checked;
+
       const celebracion = document.getElementById('celebracion');
-      if(todosAprobados && residenciaAprobada) {
+      if(todosAprobados && residenciaAprobada && residenciaCheck) {
         celebracion.style.display = 'block';
       } else {
         celebracion.style.display = 'none';
       }
     }
 
-    // Inicializa el estado al cargar la página
     document.querySelectorAll('input[type=checkbox]').forEach(chk => {
       chk.addEventListener('change', actualizar);
     });
