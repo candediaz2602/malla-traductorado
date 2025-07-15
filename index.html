@@ -227,6 +227,7 @@
       </div>
     </section>
 
+    <!-- Segundo Año -->
     <section class="anio amarillo" id="anio2">
       <h2>Segundo Año</h2>
       <div class="aclaracion">
@@ -307,7 +308,7 @@
     <section class="anio verde" id="anio4">
       <h2>Cuarto Año</h2>
       <div class="aclaracion">
-        *Para cursar materias de cuarto año, necesitás haber aprobado los finales de todas las materias de segundo año y tres finales de materias de tercer año.*
+        *Para cursar materias de cuarto año, necesitás haber aprobado los finales de segundo año y tres finales de tercer año.*
       </div>
       <div class="materias-grid">
         <div class="materia disabled" id="tradInv-box">
@@ -351,4 +352,171 @@
     </section>
 
     <!-- Residencia -->
-    <section class="anio amarillo" id="residencia-section" style="max-width: 700px;
+    <section class="anio amarillo residencia" id="residencia-section">
+      <h2>Residencia Profesional</h2>
+      <p>La residencia es el cierre del plan de estudios, con duración aproximada de 6 meses.</p>
+    </section>
+  </main>
+
+  <script>
+    // Defino las correlativas para cada materia
+    const materias = {
+      ingles1: [],
+      esp1: [],
+      trad1: [],
+      fono1: [],
+      gram1: [],
+      cultura: [],
+      info: [],
+
+      trad2: ["ingles1", "gram1", "trad1", "esp1"],
+      ingles2: ["ingles1", "gram1", "fono1"],
+      gram2: ["ingles1", "gram1"],
+      fono2: ["fono1"],
+      esp2: ["esp1"],
+      lit: ["cultura"],
+      term: ["info"],
+
+      tradLit1: ["ingles2", "gram2", "lit", "esp2", "trad2"],
+      tradTC1: ["ingles2", "gram2", "esp2", "trad2"],
+      interp1: [], // no necesita correlativas para aprobar, pero sí para cursar, se habilita igual
+      ingles3: ["ingles2", "gram2", "fono2"],
+      estrucComp: ["trad2", "gram2", "esp2"],
+      lit20: ["lit"],
+      analRiop: ["esp2"],
+
+      tradInv: ["ingles3", "tradLit1", "interp1", "analRiop", "estrucComp", "tradTC1"],
+      tradLit2: ["ingles3", "tradLit1", "lit20", "analRiop", "estrucComp"],
+      tradTC2: ["ingles3", "tradTC1", "analRiop", "estrucComp"],
+      interp2: [], // mismo caso que interp1
+      ingles4: ["ingles3"],
+      ling: ["tradLit1", "tradTC1", "estrucComp"],
+      expresion: ["analRiop", "estrucComp"],
+      desempeno: ["tradTC1", "tradLit1"],
+      etica: []
+    };
+
+    // Esta función verifica cuántas materias de un año están aprobadas
+    // Para desbloquear años superiores
+    function contarAprobadas(ids) {
+      return ids.reduce((acc, id) => {
+        const checkbox = document.getElementById(id);
+        return acc + (checkbox && checkbox.checked ? 1 : 0);
+      }, 0);
+    }
+
+    // Esta función habilita o deshabilita una materia según si se cumplen las correlativas
+    function actualizar() {
+      // Primero desbloqueamos segundo año si hay al menos 3 aprobadas del primero
+      const primerAnioIds = ["ingles1", "esp1", "trad1", "fono1", "gram1", "cultura", "info"];
+      const aprobPrimerAnio = contarAprobadas(primerAnioIds);
+      const puedeSegundoAnio = aprobPrimerAnio >= 3;
+
+      // Desbloquear segundo año
+      ["trad2", "ingles2", "gram2", "fono2", "esp2", "lit", "term"].forEach(id => {
+        const box = document.getElementById(id + "-box");
+        const checkbox = document.getElementById(id);
+        if (puedeSegundoAnio) {
+          // habilitar solo si correlativas aprobadas
+          const correl = materias[id];
+          const todasCorrelativas = correl.every(c => {
+            const cb = document.getElementById(c);
+            return cb && cb.checked;
+          });
+          if (todasCorrelativas) {
+            box.classList.remove("disabled");
+            checkbox.disabled = false;
+          } else {
+            box.classList.add("disabled");
+            checkbox.disabled = true;
+            checkbox.checked = false;
+          }
+        } else {
+          box.classList.add("disabled");
+          checkbox.disabled = true;
+          checkbox.checked = false;
+        }
+      });
+
+      // Segundo año aprobado para desbloquear tercer año: todos aprobados primero + 3 aprobados segundo
+      const segundoAnioIds = ["trad2", "ingles2", "gram2", "fono2", "esp2", "lit", "term"];
+      const aprobSegundoAnio = contarAprobadas(segundoAnioIds);
+      const aprobPrimerCompleto = primerAnioIds.every(id => {
+        const cb = document.getElementById(id);
+        return cb && cb.checked;
+      });
+      const puedeTercerAnio = aprobPrimerCompleto && aprobSegundoAnio >= 3;
+
+      // Desbloquear tercer año
+      ["tradLit1", "tradTC1", "interp1", "ingles3", "estrucComp", "lit20", "analRiop"].forEach(id => {
+        const box = document.getElementById(id + "-box");
+        const checkbox = document.getElementById(id);
+        if (puedeTercerAnio) {
+          // Para interp1, no pide correlativas para aprobar
+          if (id === "interp1") {
+            box.classList.remove("disabled");
+            checkbox.disabled = false;
+          } else {
+            const correl = materias[id];
+            const todasCorrelativas = correl.every(c => {
+              const cb = document.getElementById(c);
+              return cb && cb.checked;
+            });
+            if (todasCorrelativas) {
+              box.classList.remove("disabled");
+              checkbox.disabled = false;
+            } else {
+              box.classList.add("disabled");
+              checkbox.disabled = true;
+              checkbox.checked = false;
+            }
+          }
+        } else {
+          box.classList.add("disabled");
+          checkbox.disabled = true;
+          checkbox.checked = false;
+        }
+      });
+
+      // Para cuarto año: todos segundos aprobados + 3 terceros aprobados
+      const tercerAnioIds = ["tradLit1", "tradTC1", "interp1", "ingles3", "estrucComp", "lit20", "analRiop"];
+      const aprobTercerAnio = contarAprobadas(tercerAnioIds);
+      const puedeCuartoAnio = aprobSegundoAnio === segundoAnioIds.length && aprobTercerAnio >= 3;
+
+      // Desbloquear cuarto año
+      ["tradInv", "tradLit2", "tradTC2", "interp2", "ingles4", "ling", "expresion", "desempeno", "etica"].forEach(id => {
+        const box = document.getElementById(id + "-box");
+        const checkbox = document.getElementById(id);
+        if (puedeCuartoAnio) {
+          // interp2 tampoco necesita correlativas para aprobar
+          if (id === "interp2" || id === "etica") {
+            box.classList.remove("disabled");
+            checkbox.disabled = false;
+          } else {
+            const correl = materias[id];
+            const todasCorrelativas = correl.every(c => {
+              const cb = document.getElementById(c);
+              return cb && cb.checked;
+            });
+            if (todasCorrelativas) {
+              box.classList.remove("disabled");
+              checkbox.disabled = false;
+            } else {
+              box.classList.add("disabled");
+              checkbox.disabled = true;
+              checkbox.checked = false;
+            }
+          }
+        } else {
+          box.classList.add("disabled");
+          checkbox.disabled = true;
+          checkbox.checked = false;
+        }
+      });
+    }
+
+    // Inicializar al cargar la página
+    window.addEventListener("load", actualizar);
+  </script>
+</body>
+</html>
